@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       isLoading: false,
       delayLoading: 3000,
+      tentativas: 0,
       emoji: '',
       cards: [],
       virados: [],
@@ -36,7 +37,7 @@ class App extends Component {
     cards = this.shuffle(cards);
     const emojis = ['😃', '😙', '😊', '😃', '😂'];
     let emoji = emojis[Math.floor(Math.random()*emojis.length)];
-    this.setState({cards, virados: [], acertos: [], emoji: emoji});
+    this.setState({cards, virados: [], acertos: [], emoji: emoji, tentativas: 0});
   }
 
   shuffle(array) {
@@ -80,8 +81,10 @@ class App extends Component {
 
         // verifica se tem dois itens selecionados
         if (this.state.virados.length === 1) {
+
+          const tentativas = this.state.tentativas;
           
-          this.setState({isLoading: true});
+          this.setState({isLoading: true, tentativas: tentativas + 1});
           this.activateCard(card);
 
           setTimeout(() => {
@@ -95,7 +98,7 @@ class App extends Component {
 
               // verifica se ganhou
               if (this.countRestantes() === 0) {
-                if (window.confirm('Você ganhou 👍 Quer jogar denovo?')) {
+                if (window.confirm(`Você ganhou com ${this.state.tentativas} tentativas 👍 Quer jogar denovo?`)) {
                   this.startNewGame();
                 }
               }
