@@ -1,33 +1,116 @@
-.App {
-  text-align: center;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.cards {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 25%;
+  box-sizing: border-box;
+	height: 240px;
+}
+
+.flip-container {
+	perspective: 1000px;
+  transition: 1s;
+}
+
+.flip-container.active .front, .flip-container.active .back {
+    border-color: red;
+}
+
+.flip-container.acerto .front, .flip-container.acerto .back {
+    border-color: green;
+}
+
+.active .back, .acerto .back,
+.active .front, .acerto .front {
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
+-moz-box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
+box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
+}
+
+.flip-container.active .flipper,
+.flip-container.acerto .flipper {
+		transform: rotateY(180deg);
+}
+
+.cards.loading .flip-container:not(.active) {
+  opacity: 0.15;
+}
+
+.cards.loading .flip-container:not(.active) .front,
+.cards.loading .flip-container:not(.active) .back {
+  cursor: initial;
+}
+
+.flip-container, .front, .back {
+	width: 150px;
+	height: 220px;
+  cursor: pointer;
+}
+
+.flipper {
+	transition: 1s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+.front, .back {
+	backface-visibility: hidden;
+  border: 2px solid pink;
+  border-radius: 6px;
+	position: absolute;
+	top: 0;
+	left: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 4em;
 }
 
-.App-link {
-  color: #61dafb;
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.back {
+	transform: rotateY(180deg);
+}
+
+.btn {
+  font-size: 20px;
+  border-radius: 20px;
+  padding: 10px 40px;
+}
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+  .container {
+    max-width: initial;
+    padding: 10px 20px;
   }
-  to {
-    transform: rotate(360deg);
+  .card {
+    width: 33%;
+  }
+  .flip-container, .front, .back {
+    width: 120px;
+    height: 190px;
+  }
+}
+
+
+@media screen and (max-width: 640px) {
+  .card {
+    width: 50%;
   }
 }
