@@ -33,25 +33,12 @@ class App extends Component {
 
   startNewGame() {
     let cards = [];
-    const repetir = this.state.repetir;
-
-
-
-
-
-
-    // for (let i = 0; i < (this.state.animais.length) && (repetiu < repetir); i++) {
-    //   if (this.state.animais[i] === ultimo) {
-    //     repetiu++;
-    //   } else {
-    //     repetiu = 0;
-    //   }
-    //   ultimo = this.state.animais[i];
-    // }
-
     let count = 0;
+
+    // passa pelos animais
     this.state.animais.map((animal, index) => {
-      for (let repetiu = 0; repetiu < repetir; repetiu++) {
+      // inclui a quantidade de vezes informada
+      for (let repetiu = 0; repetiu < this.state.repetir; repetiu++) {
         count++;
         cards.push({ id: count, name: animal });
       }
