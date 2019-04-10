@@ -10,14 +10,20 @@ class App extends Component {
       delayLoading: 3000,
       tentativas: 0,
       emoji: '',
+      animais: this.getAnimais(),
       cards: [],
       virados: [],
       acertos: [],
+      repetir: 3
     }
   }
 
   componentDidMount() {
     this.startNewGame();
+  }
+
+  getAnimais() {
+    return ['🐒', '🐝', '🐊', '🐇', '🐆', '🦎'];
   }
 
   onClickStart(ev) {
@@ -26,18 +32,34 @@ class App extends Component {
   }
 
   startNewGame() {
-    let cards =  [
-      {id: 1, name: '🐒'},{id: 2, name:'🐒'},
-      {id: 3, name: '🐝'},{id: 4, name:'🐝'},
-      {id: 5, name: '🐊'},{id: 6, name:'🐊'},
-      {id: 7, name: '🐇'},{id: 8, name:'🐇'},
-      {id: 9, name: '🐆'},{id: 10, name:'🐆'},
-      {id: 11, name: '🦎'},{id: 12, name:'🦎'}
-    ];
+    let cards = [];
+    const repetir = this.state.repetir;
+
+
+
+
+
+
+    // for (let i = 0; i < (this.state.animais.length) && (repetiu < repetir); i++) {
+    //   if (this.state.animais[i] === ultimo) {
+    //     repetiu++;
+    //   } else {
+    //     repetiu = 0;
+    //   }
+    //   ultimo = this.state.animais[i];
+    // }
+
+    let count = 0;
+    this.state.animais.map((animal, index) => {
+      for (let repetiu = 0; repetiu < repetir; repetiu++) {
+        count++;
+        cards.push({ id: count, name: animal });
+      }
+    });
     cards = this.shuffle(cards);
     const emojis = ['😃', '😙', '😊', '😃', '😂'];
-    let emoji = emojis[Math.floor(Math.random()*emojis.length)];
-    this.setState({cards, virados: [], acertos: [], emoji: emoji, tentativas: 0});
+    let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    this.setState({ cards, virados: [], acertos: [], emoji: emoji, tentativas: 0 });
   }
 
   shuffle(array) {
@@ -77,21 +99,21 @@ class App extends Component {
     if (!this.state.isLoading) {
 
       // verifica se já é ativo
-      if (!this.isCardActive(card) && !this.isCardActive(card)) {
+      if (!this.isCardActive(card)) {
 
-        // verifica se tem dois itens selecionados
-        if (this.state.virados.length === 1) {
+        // verifica se tem a quantidade de itens selecionados
+        if (this.state.virados.length === this.state.repetir - 1) {
 
           const tentativas = this.state.tentativas;
-          
-          this.setState({isLoading: true, tentativas: tentativas + 1});
+
+          this.setState({ isLoading: true, tentativas: tentativas + 1 });
           this.activateCard(card);
 
           setTimeout(() => {
 
             const acertou = this.state.virados.filter((virado) => {
               return virado.name === card.name && virado.id !== card.id;
-            }).length > 0;
+            }).length === this.state.repetir - 1;
 
             if (acertou) {
               this.acertaCard(card);
@@ -103,7 +125,7 @@ class App extends Component {
                 }
               }
             }
-            this.setState({isLoading: false, virados: []});
+            this.setState({ isLoading: false, virados: [] });
 
           }, this.state.delayLoading);
 
@@ -121,20 +143,20 @@ class App extends Component {
 
   activateCard(card) {
     const virados = [...this.state.virados, card];
-    this.setState({virados: virados});
+    this.setState({ virados: virados });
   }
 
   acertaCard(card) {
     const acertos = [...this.state.acertos, card.name];
-    this.setState({acertos: acertos});
+    this.setState({ acertos: acertos });
   }
 
   desactivateCard(card) {
-   let virados = [...this.state.virados];
+    let virados = [...this.state.virados];
     virados = virados.filter((virado) => {
       return virado !== card;
     });
-    this.setState({virados: virados});
+    this.setState({ virados: virados });
   }
 
   countAcertos() {
@@ -163,25 +185,25 @@ class App extends Component {
       <div className="container">
 
         {linha}
-        
-        <div className={"cards " + (isLoading ? 'loading' : '' )}>
-          {cards.map((card) => 
-          <div key={card.id} className="card">
-            <div 
-              className={"flip-container " 
-              + (this.isCardActive(card) ? 'active ' : '' ) 
-              + (this.isCardAcerto(card) ? 'acerto ' : '')}
-              onClick={(e) => this.onClickCard(card)}>
-              <div className="flipper">
-                <div className="front">
-                {emoji}
-                </div>
-                <div className="back">
-                {card.name}
+
+        <div className={"cards " + (isLoading ? 'loading' : '')}>
+          {cards.map((card) =>
+            <div key={card.id} className="card">
+              <div
+                className={"flip-container "
+                  + (this.isCardActive(card) ? 'active ' : '')
+                  + (this.isCardAcerto(card) ? 'acerto ' : '')}
+                onClick={(e) => this.onClickCard(card)}>
+                <div className="flipper">
+                  <div className="front">
+                    {emoji}
+                  </div>
+                  <div className="back">
+                    {card.name}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           )}
         </div>
       </div>
