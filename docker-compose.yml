@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  jogo:
+    image: node:14.18.1
+    working_dir: /app
+    volumes:
+      - ./:/app
+    container_name: jogo-da-memoria
+    command: sh -c "yarn install && yarn start"
