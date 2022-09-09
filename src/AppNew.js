@@ -30,7 +30,7 @@ const App = () => {
     const icons = ['🐒', '🐝', '🐊', '🐇', '🐆', '🦎'];
     switch (level) {
       case 1:
-        return icons.slice(0, 4);
+        return icons.slice(0, 2);
       case 2:
         return icons.slice(0, 5);
       default:
@@ -41,6 +41,13 @@ const App = () => {
   const handleNewGame = (ev) => {
     ev.preventDefault();
     newGame();
+  }
+
+  // recomeçar
+  const handleReset = (ev) => {
+    ev.preventDefault();
+    setIsPlaying(false);
+    setWinner(null);
   }
 
   // nova partida
@@ -138,6 +145,8 @@ const App = () => {
         if (virados.length === repetir - 1) {
           setIsLoading(true);
 
+          addTentativa(currentPlayer);
+
           setTimeout(() => {
 
             const acertou = virados.filter(virado => (
@@ -152,7 +161,6 @@ const App = () => {
               }
 
             }
-
 
             setVirados([]);
             setIsLoading(false);
@@ -180,6 +188,13 @@ const App = () => {
 
   const countRestantes = () => (cards.length / repetir) - countTotalAcertos();
 
+  const addTentativa = (currentPlayer) => setPlayers(oldPlayers =>
+    oldPlayers.map(({ tentativas, ...player }, index) => ({
+      ...player,
+      tentativas: currentPlayer - 1 === index ? tentativas + 1 : tentativas
+    }))
+  )
+
   return <>
     {!isPlaying && (
       <div className="overlay">
@@ -201,8 +216,23 @@ const App = () => {
         </div>
 
         <p>
-          <button onClick={handleNewGame}>COMEÇAR</button>
+          <button className="start" onClick={handleNewGame}>COMEÇAR</button>
         </p>
+      </div>
+    )}
+
+    {winner && (
+      <div className="overlay">
+        <div className="win">
+          {players.length === 1
+            ? <h2>VOCÊ GANHOU</h2>
+            : <h2>O JOGADOR {winner} GANHOU</h2>
+          }
+          <h3>Com {players[winner - 1].tentativas} tentativas</h3>
+          <p>
+            <button className="start" onClick={handleReset}>JOGAR DENOVO</button>
+          </p>
+        </div>
       </div>
     )}
 

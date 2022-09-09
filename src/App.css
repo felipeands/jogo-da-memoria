@@ -154,7 +154,7 @@ html {
 
 
 .overlay {
-  background: floralwhite;
+  background: rgb(230, 206, 158, 0.9);
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -164,12 +164,20 @@ html {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  z-index: 1;
 }
 
-.game-options button {
+button {
   padding: 20px;
+  cursor: pointer;
 }
 
 .game-options button.active {
   border: 5px solid black;
+}
+
+button.start {
+  padding: 20px;
+  border: none;
+  background-color: aqua;
 }
