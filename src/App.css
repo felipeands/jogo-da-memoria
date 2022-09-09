@@ -1,5 +1,10 @@
+body,
+html {
+  padding: 0;
+}
+
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px 0;
 }
@@ -12,32 +17,54 @@
 .card {
   width: 25%;
   box-sizing: border-box;
-	height: 240px;
+  height: 240px;
 }
 
 .flip-container {
-	perspective: 1000px;
+  perspective: 1000px;
   transition: 1s;
 }
 
-.flip-container.active .front, .flip-container.active .back {
-    border-color: red;
+/* ativos */
+.flip-container.active.player-color1 .front,
+.flip-container.active.player-color1 .back {
+  border-color: red;
+}
+.flip-container.active.player-color2 .front,
+.flip-container.active.player-color2 .back {
+  border-color: blue;
+}
+.flip-container.active.player-color3 .front,
+.flip-container.active.player-color3 .back {
+  border-color: green;
 }
 
-.flip-container.acerto .front, .flip-container.acerto .back {
-    border-color: green;
+/* acertos */
+.flip-container.acerto.player-color1 .front,
+.flip-container.acerto.player-color1 .back {
+  border-color: red;
+}
+.flip-container.acerto.player-color2 .front,
+.flip-container.acerto.player-color2 .back {
+  border-color: blue;
+}
+.flip-container.acerto.player-color3 .front,
+.flip-container.acerto.player-color3 .back {
+  border-color: green;
 }
 
-.active .back, .acerto .back,
-.active .front, .acerto .front {
-  -webkit-box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
--moz-box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
-box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
+.active .back,
+
+.active .front,
+.acerto .front {
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 1);
+  -moz-box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 1);
+  box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 1);
 }
 
 .flip-container.active .flipper,
 .flip-container.acerto .flipper {
-		transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .cards.loading .flip-container:not(.active) {
@@ -49,26 +76,29 @@ box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
   cursor: initial;
 }
 
-.flip-container, .front, .back {
-	width: 150px;
-	height: 220px;
+.flip-container,
+.front,
+.back {
+  width: 150px;
+  height: 220px;
   cursor: pointer;
 }
 
 .flipper {
-	transition: 0.6s;
-	transform-style: preserve-3d;
+  transition: 0.6s;
+  transform-style: preserve-3d;
 
-	position: relative;
+  position: relative;
 }
 
-.front, .back {
-	backface-visibility: hidden;
-  border: 2px solid pink;
+.front,
+.back {
+  backface-visibility: hidden;
+  border: 2px solid lightgray;
   border-radius: 6px;
-	position: absolute;
-	top: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,12 +106,12 @@ box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
 }
 
 .front {
-	z-index: 2;
-	transform: rotateY(0deg);
+  z-index: 2;
+  transform: rotateY(0deg);
 }
 
 .back {
-	transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .btn {
@@ -99,10 +129,14 @@ box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
     max-width: initial;
     padding: 10px 20px;
   }
+
   .card {
     width: 33%;
   }
-  .flip-container, .front, .back {
+
+  .flip-container,
+  .front,
+  .back {
     width: 120px;
     height: 190px;
   }
@@ -113,4 +147,29 @@ box-shadow: 0px 0px 9px 0px rgba(102,102,102,1);
   .card {
     width: 50%;
   }
+}
+
+
+
+
+
+.overlay {
+  background: floralwhite;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.game-options button {
+  padding: 20px;
+}
+
+.game-options button.active {
+  border: 5px solid black;
 }
