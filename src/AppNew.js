@@ -262,21 +262,22 @@ const App = () => {
 
               const player = isCardAcerto(card)
 
-              return (<div key={card.id} className={`card ${player ? 'acerto' : ''}`}>
-                <div
-                  className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
-                 ${(player ? 'acerto player-' + player.color : '')}`}
-                  onClick={(e) => handleCardClick(card)}>
-                  <div className="flipper">
-                    <div className="front">
-                      {emoji}
+              return (
+                <div key={card.id} className={`card ${player ? 'acerto' : ''} player-${currentPlayer}`}>
+                  <div
+                    className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
+                  ${(player ? 'acerto player-' + player.color : '')}`}
+                    onClick={(e) => handleCardClick(card)}>
+                    <div className="flipper">
+                      <div className="front">
+                        {emoji}
+                      </div>
+                      <div className="back"
+                        style={{ backgroundImage: `url("${cardsPath}${card.name}")` }}
+                      ></div>
                     </div>
-                    <div className="back"
-                      style={{ backgroundImage: `url("${cardsPath}${card.name}")` }}
-                    ></div>
                   </div>
                 </div>
-              </div>
               )
             }
             )}
