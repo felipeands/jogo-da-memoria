@@ -5,6 +5,7 @@ const App = () => {
 
   const delayLoading = 3000;
   const colors = ['color1', 'color2', 'color3'];
+  const cardsPath = '/images/cards/';
 
   const defaultPlayer = {
     tentativas: 0,
@@ -27,14 +28,30 @@ const App = () => {
   const [emoji, setEmoji] = useState('');
 
   const images = useMemo(() => {
-    const icons = ['🐒', '🐝', '🐊', '🐇', '🐆', '🦎'];
+
+
+    const imagesFiles = [
+      'memoria04.png',
+      'memoria05.png',
+      'memoria07.png',
+      'memoria09.png',
+      'memoria10.png',
+      'memoria11.png',
+      'memoria12.png',
+      'memoria13.png',
+      'memoria14.png',
+      'memoria15.png',
+      'memoria22.png',
+      'memoria24.png',
+    ];
+
     switch (level) {
       case 1:
-        return icons.slice(0, 2);
+        return imagesFiles.slice(0, 2);
       case 2:
-        return icons.slice(0, 5);
+        return imagesFiles.slice(0, 5);
       default:
-        return icons;
+        return imagesFiles;
     }
   }, [level])
 
@@ -235,34 +252,36 @@ const App = () => {
       </div>
     )}
 
-    <div className="game">
-      <div className="container">
-        <div className={"cards " + (isLoading ? 'loading' : '')}>
-          {cards.map((card) => {
+    {isPlaying &&
+      <div className="game">
+        <div className="container">
+          <div className={`cards ${isLoading ? 'loading' : ''}`}>
+            {cards.map((card) => {
 
-            const player = isCardAcerto(card)
+              const player = isCardAcerto(card)
 
-            return (<div key={card.id} className="card">
-              <div
-                className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
+              return (<div key={card.id} className={`card ${player ? 'acerto' : ''}`}>
+                <div
+                  className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
                  ${(player ? 'acerto player-' + player.color : '')}`}
-                onClick={(e) => handleCardClick(card)}>
-                <div className="flipper">
-                  <div className="front">
-                    {emoji}
-                  </div>
-                  <div className="back">
-                    {card.name}
+                  onClick={(e) => handleCardClick(card)}>
+                  <div className="flipper">
+                    <div className="front">
+                      {emoji}
+                    </div>
+                    <div className="back"
+                      style={{ backgroundImage: `url("${cardsPath}${card.name}")` }}
+                    ></div>
                   </div>
                 </div>
               </div>
-            </div>
-            )
-          }
-          )}
+              )
+            }
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    }
   </>;
 
 }
