@@ -5,6 +5,7 @@ const App = () => {
 
   const delayLoading = 3000;
   const colors = ['color1', 'color2', 'color3'];
+  const cardsPath = '/images/cards/';
 
   const defaultPlayer = {
     tentativas: 0,
@@ -22,19 +23,37 @@ const App = () => {
   const [virados, setVirados] = useState([]);
 
   const [totalPlayers, setTotalPlayers] = useState(1);
-  const [level, setLevel] = useState(2);
+  const [level, setLevel] = useState(1);
   const [repetir, setRepetir] = useState(2);
   const [emoji, setEmoji] = useState('');
 
+  const winnerTentativas = useMemo(() => (winner ? players[winner - 1].tentativas : 0), [winner, players])
+
   const images = useMemo(() => {
-    const icons = ['🐒', '🐝', '🐊', '🐇', '🐆', '🦎'];
+
+
+    const imagesFiles = [
+      'memoria04.png',
+      'memoria05.png',
+      'memoria07.png',
+      'memoria09.png',
+      'memoria10.png',
+      'memoria11.png',
+      'memoria12.png',
+      'memoria13.png',
+      'memoria14.png',
+      'memoria15.png',
+      'memoria22.png',
+      'memoria24.png',
+    ];
+
     switch (level) {
       case 1:
-        return icons.slice(0, 2);
+        return imagesFiles.slice(0, 2);
       case 2:
-        return icons.slice(0, 5);
+        return imagesFiles.slice(0, 5);
       default:
-        return icons;
+        return imagesFiles;
     }
   }, [level])
 
@@ -134,7 +153,7 @@ const App = () => {
 
   const handleCardClick = (card) => {
 
-    if (!isLoading) {
+    if (!isLoading && !isCardAcerto(card)) {
 
       // verifica se já é ativo
       if (!isCardActive(card)) {
@@ -199,7 +218,7 @@ const App = () => {
     {!isPlaying && (
       <div className="overlay">
         <div className="game-options">
-          <h1>Dificuldade (idade)</h1>
+          <h1>Sua idade (dificuldade)</h1>
           <div className="level">
             <button className={level === 1 ? 'active' : ''} onClick={() => setLevel(1)}>1-3 anos</button>
             <button className={level === 2 ? 'active' : ''} onClick={() => setLevel(2)}>4-7 anos</button>
@@ -211,7 +230,6 @@ const App = () => {
           <div className="players">
             <button className={totalPlayers === 1 ? 'active' : ''} onClick={() => setTotalPlayers(1)}>1 jogador</button>
             <button className={totalPlayers === 2 ? 'active' : ''} onClick={() => setTotalPlayers(2)}>2 jogadores</button>
-            <button className={totalPlayers === 3 ? 'active' : ''} onClick={() => setTotalPlayers(3)}>3 jogadores</button>
           </div>
         </div>
 
@@ -225,10 +243,10 @@ const App = () => {
       <div className="overlay">
         <div className="win">
           {players.length === 1
-            ? <h2>VOCÊ GANHOU</h2>
-            : <h2>O JOGADOR {winner} GANHOU</h2>
+            ? <h2>VOCÊ GANHOU!</h2>
+            : <h2>O JOGADOR {winner} GANHOU!</h2>
           }
-          <h3>Com {players[winner - 1].tentativas} tentativas</h3>
+          <h3>Com apenas {winnerTentativas} {winnerTentativas === 1 ? 'tentativa' : 'tentativas'}</h3>
           <p>
             <button className="start" onClick={handleReset}>JOGAR DENOVO</button>
           </p>
@@ -236,34 +254,37 @@ const App = () => {
       </div>
     )}
 
-    <div className="game">
-      <div className="container">
-        <div className={"cards " + (isLoading ? 'loading' : '')}>
-          {cards.map((card) => {
+    {isPlaying &&
+      <div className="game">
+        <div className="container">
+          <div className={`cards ${isLoading ? 'loading' : ''}`}>
+            {cards.map((card) => {
 
-            const player = isCardAcerto(card)
+              const player = isCardAcerto(card)
 
-            return (<div key={card.id} className="card">
-              <div
-                className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
-                 ${(player ? 'acerto player-' + player.color : '')}`}
-                onClick={(e) => handleCardClick(card)}>
-                <div className="flipper">
-                  <div className="front">
-                    {emoji}
-                  </div>
-                  <div className="back">
-                    {card.name}
+              return (
+                <div key={card.id} className={`card ${player ? 'acerto' : ''} player-${currentPlayer}`}>
+                  <div
+                    className={`flip-container ${(isCardActive(card) ? 'active player-' + players[currentPlayer - 1].color : '')}
+                  ${(player ? 'acerto player-' + player.color : '')}`}
+                    onClick={(e) => handleCardClick(card)}>
+                    <div className="flipper">
+                      <div className="front">
+                        {emoji}
+                      </div>
+                      <div className="back"
+                        style={{ backgroundImage: `url("${cardsPath}${card.name}")` }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            )
-          }
-          )}
+              )
+            }
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    }
   </>;
 
 }

@@ -1,10 +1,42 @@
+@keyframes bg-moves {
+  0% {
+    background-position: top left;
+    background-size: 150%;
+  }
+  25% {
+    background-position: bottom right;
+    background-size: 100%;
+  }
+  50% {
+    background-position: bottom left;
+    background-size: 200%;
+  }
+  75% {
+    background-position: top right;
+    background-size: 100%;
+  }
+  100% {
+    background-position: top left;
+    background-size: 150%;
+  }
+}
+
+
 body,
 html {
   padding: 0;
+  height: 100%;
+}
+
+body {
+  -webkit-animation: bg-moves 55s infinite ease-in-out both;
+	        animation: bg-moves 55s infinite ease-in-out both;
+  background-image: url(/public/images/image-013.jpg);
+  background-repeat: no-repeat;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1250px;
   margin: 0 auto;
   padding: 20px 0;
 }
@@ -17,12 +49,16 @@ html {
 .card {
   width: 25%;
   box-sizing: border-box;
-  height: 240px;
+  height: 310px;
 }
 
 .flip-container {
   perspective: 1000px;
   transition: 1s;
+}
+
+.flipper .front {
+  background-color: white;
 }
 
 /* ativos */
@@ -39,7 +75,27 @@ html {
   border-color: green;
 }
 
+
+
+@keyframes acerto-player1 {
+  from {
+    transform: translateY(-5rem);
+  }
+  to {
+    transform: translateY(0rem);
+  }
+}
+
 /* acertos */
+.acerto.player-1 .flip-container {
+  /* transform: translate(-700px, 630px);
+  transition: 3s all; */
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  animation: acerto-player1 1s ease-in-out both; */
+}
+
 .flip-container.acerto.player-color1 .front,
 .flip-container.acerto.player-color1 .back {
   border-color: red;
@@ -54,7 +110,6 @@ html {
 }
 
 .active .back,
-
 .active .front,
 .acerto .front {
   -webkit-box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 1);
@@ -79,9 +134,10 @@ html {
 .flip-container,
 .front,
 .back {
-  width: 150px;
-  height: 220px;
+  width: 300px;
+  height: 300px;
   cursor: pointer;
+  background-size: contain;
 }
 
 .flipper {
@@ -137,7 +193,7 @@ html {
   .flip-container,
   .front,
   .back {
-    width: 120px;
+    width: 190px;
     height: 190px;
   }
 }
@@ -153,8 +209,62 @@ html {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ----------------------------------------
+ * animation rotate-center
+ * ----------------------------------------
+ */
+
+@-webkit-keyframes rotate-vert-center {
+  0% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+@keyframes rotate-vert-center {
+  0% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+
+
+.game {
+  background-color: rgba(2255, 2255, 2255, 0.7);
+  min-height: 100vh;
+  transition: 4s all;
+}
+
+
+
 .overlay {
-  background: rgb(230, 206, 158, 0.9);
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -170,14 +280,33 @@ html {
 button {
   padding: 20px;
   cursor: pointer;
+  border: 6px solid white;
+}
+
+.game-options button {
+  font-size: 44px;
 }
 
 .game-options button.active {
-  border: 5px solid black;
+  border: 5px solid aqua;
+  animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
+
 button.start {
-  padding: 20px;
+  padding: 20px 60px;
   border: none;
   background-color: aqua;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button.start:hover {
+  background-color: #A56DE2;
+  color: white;
+}
+
+.overlay .win {
+  text-align: center;
 }
