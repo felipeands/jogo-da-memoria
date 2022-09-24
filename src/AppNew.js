@@ -47,13 +47,15 @@ const App = () => {
       'memoria24.png',
     ];
 
+    const randomImages = imagesFiles.sort(() => Math.random() - 0.5);
+
     switch (level) {
       case 1:
-        return imagesFiles.slice(0, 2);
+        return randomImages.slice(0, 2);
       case 2:
-        return imagesFiles.slice(0, 5);
+        return randomImages.slice(0, 5);
       default:
-        return imagesFiles;
+        return randomImages;
     }
   }, [level])
 
