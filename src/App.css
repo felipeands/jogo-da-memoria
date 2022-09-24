@@ -249,6 +249,10 @@ button {
   border: 6px solid white;
 }
 
+.game-options button {
+  font-size: 44px;
+}
+
 .game-options button.active {
   border: 5px solid aqua;
   animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
@@ -261,4 +265,10 @@ button.start {
   background-color: aqua;
   border-radius: 30px;
   font-size: 18px;
+  font-weight: bold;
+}
+
+button.start:hover {
+  background-color: #A56DE2;
+  color: white;
 }

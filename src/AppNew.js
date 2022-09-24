@@ -199,7 +199,7 @@ const App = () => {
     {!isPlaying && (
       <div className="overlay">
         <div className="game-options">
-          <h1>Dificuldade (idade)</h1>
+          <h1>Sua idade (dificuldade)</h1>
           <div className="level">
             <button className={level === 1 ? 'active' : ''} onClick={() => setLevel(1)}>1-3 anos</button>
             <button className={level === 2 ? 'active' : ''} onClick={() => setLevel(2)}>4-7 anos</button>
