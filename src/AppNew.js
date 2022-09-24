@@ -22,7 +22,7 @@ const App = () => {
   const [virados, setVirados] = useState([]);
 
   const [totalPlayers, setTotalPlayers] = useState(1);
-  const [level, setLevel] = useState(2);
+  const [level, setLevel] = useState(1);
   const [repetir, setRepetir] = useState(2);
   const [emoji, setEmoji] = useState('');
 
@@ -211,7 +211,6 @@ const App = () => {
           <div className="players">
             <button className={totalPlayers === 1 ? 'active' : ''} onClick={() => setTotalPlayers(1)}>1 jogador</button>
             <button className={totalPlayers === 2 ? 'active' : ''} onClick={() => setTotalPlayers(2)}>2 jogadores</button>
-            <button className={totalPlayers === 3 ? 'active' : ''} onClick={() => setTotalPlayers(3)}>3 jogadores</button>
           </div>
         </div>
 
