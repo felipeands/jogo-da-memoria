@@ -27,6 +27,8 @@ const App = () => {
   const [repetir, setRepetir] = useState(2);
   const [emoji, setEmoji] = useState('');
 
+  const winnerTentativas = useMemo(() => (winner ? players[winner - 1].tentativas : 0), [winner, players])
+
   const images = useMemo(() => {
 
 
@@ -241,10 +243,10 @@ const App = () => {
       <div className="overlay">
         <div className="win">
           {players.length === 1
-            ? <h2>VOCÊ GANHOU</h2>
-            : <h2>O JOGADOR {winner} GANHOU</h2>
+            ? <h2>VOCÊ GANHOU!</h2>
+            : <h2>O JOGADOR {winner} GANHOU!</h2>
           }
-          <h3>Com {players[winner - 1].tentativas} tentativas</h3>
+          <h3>Com apenas {winnerTentativas} {winnerTentativas === 1 ? 'tentativa' : 'tentativas'}</h3>
           <p>
             <button className="start" onClick={handleReset}>JOGAR DENOVO</button>
           </p>

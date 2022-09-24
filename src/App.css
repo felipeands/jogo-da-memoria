@@ -313,3 +313,7 @@ button.start:hover {
   background-color: #A56DE2;
   color: white;
 }
+
+.overlay .win {
+  text-align: center;
+}
