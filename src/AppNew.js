@@ -151,7 +151,7 @@ const App = () => {
 
   const handleCardClick = (card) => {
 
-    if (!isLoading) {
+    if (!isLoading && !isCardAcerto(card)) {
 
       // verifica se já é ativo
       if (!isCardActive(card)) {

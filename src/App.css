@@ -1,4 +1,4 @@
-@keyframes kenburns-top {
+@keyframes bg-moves {
   0% {
     background-position: top left;
     background-size: 150%;
@@ -29,8 +29,8 @@ html {
 }
 
 body {
-  -webkit-animation: kenburns-top 55s infinite ease-in-out both;
-	        animation: kenburns-top 55s infinite ease-in-out both;
+  -webkit-animation: bg-moves 55s infinite ease-in-out both;
+	        animation: bg-moves 55s infinite ease-in-out both;
   background-image: url(/public/images/image-013.jpg);
   background-repeat: no-repeat;
 }
