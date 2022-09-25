@@ -33,18 +33,18 @@ const App = () => {
 
 
     const imagesFiles = [
-      'memoria04.png',
-      'memoria05.png',
-      'memoria07.png',
-      'memoria09.png',
-      'memoria10.png',
-      'memoria11.png',
-      'memoria12.png',
-      'memoria13.png',
-      'memoria14.png',
-      'memoria15.png',
-      'memoria22.png',
-      'memoria24.png',
+      'memoria04.jpg',
+      'memoria05.jpg',
+      'memoria07.jpg',
+      'memoria09.jpg',
+      'memoria10.jpg',
+      'memoria11.jpg',
+      'memoria12.jpg',
+      'memoria13.jpg',
+      'memoria14.jpg',
+      'memoria15.jpg',
+      'memoria22.jpg',
+      'memoria24.jpg',
     ];
 
     const randomImages = imagesFiles.sort(() => Math.random() - 0.5);

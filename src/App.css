@@ -96,6 +96,15 @@ body {
   animation: acerto-player1 1s ease-in-out both; */
 }
 
+.card {
+  cursor: pointer;
+}
+ 
+.card.acerto {
+  filter: grayscale(1);
+  cursor: initial;
+}
+
 .flip-container.acerto.player-color1 .front,
 .flip-container.acerto.player-color1 .back {
   border-color: red;
@@ -136,7 +145,7 @@ body {
 .back {
   width: 300px;
   height: 300px;
-  cursor: pointer;
+  /* cursor: pointer; */
   background-size: contain;
 }
 
